@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "HackerNewsApp"
+  "defaultProject": "HackerNewsApp",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
