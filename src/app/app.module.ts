@@ -41,6 +41,7 @@ registerLocaleData(en);
     NzButtonModule,
     NzPageHeaderModule,
     NzTypographyModule,
+    StoreModule.forRoot([]),
     StoreModule.forFeature(fromNews.newsFeatureKey, fromNews.reducer),
     // EffectsModule.forRoot([NewsEffects]),
     EffectsModule.forRoot([]),
