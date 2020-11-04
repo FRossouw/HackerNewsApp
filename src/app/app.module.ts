@@ -18,13 +18,19 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { HomeComponent } from './components/home/home.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromNews from '../app/store/reducers/news.reducer';
+import { NewsEffects } from '../app/store/effects/news.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,11 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     NzButtonModule,
     NzPageHeaderModule,
-    NzTypographyModule
+    NzTypographyModule,
+    StoreModule.forFeature(fromNews.newsFeatureKey, fromNews.reducer),
+    // EffectsModule.forRoot([NewsEffects]),
+    EffectsModule.forRoot([]),
+    EffectsModule.forFeature([NewsEffects]),
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
