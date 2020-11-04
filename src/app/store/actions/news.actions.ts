@@ -1,11 +1,24 @@
 import { Action, createAction, props } from '@ngrx/store';
 import { Story } from 'src/app/models/story';
+import { User } from 'src/app/models/user';
+import { Comment } from 'src/app/models/comment';
 
-// Load News
-export const getNews = createAction('[News] Get News');
-export const getNewsSuccess = createAction('[News] Get News Success', props<{ data: any }>());
-export const getNewsFailure = createAction('[News] Get News Failure', props<{ error: any }>());
+// Get Single Story
+export const getStory = createAction('[News] Get Story', props<{ storyID: string }>());
+export const getStoryComplete = createAction('[News] Get Story Complete', props<{ story: Story }>());
 
+// Get Multiple Stories
+export const getStories = createAction('[News] Get Stories', props<{ storyList: string[] }>());
+export const getStoriesComplete = createAction('[News] Get Stories Complete', props<{ stories: Story[] }>());
+
+// Get Top Stories
 export const getTopStories = createAction('[News] Get Top Stories');
-export const getTopStoriesSuccess = createAction('[News] Get Top Stories Success', props<{ data: Story[] }>());
-export const getTopStoriesFailure = createAction('[News] Get Top Stories Failure', props<{ error: any }>());
+export const getTopStoriesComplete = createAction('[News] Get Top Stories Complete', props<{ storyIds: string[] }>());
+
+// Get Comments
+export const getComments = createAction('[News] Get Comments', props<{ commentIds: string[] }>());
+export const getCommentsComplete = createAction('[News] Get Comments Complete', props<{ comments: Comment[] }>());
+
+// Get User
+export const getUser = createAction('[News] Get User', props<{ userId: string }>());
+export const getUserComplete = createAction('[News] Get User Complete', props<{ user: User }>());
