@@ -1,78 +1,116 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import { Story } from 'src/app/models/story';
-import * as fromAction from '../actions/news.actions';
+import { Comment } from 'src/app/models/comment';
+import { User } from 'src/app/models/user';
+import * as fromActions from '../actions/news.actions';
 
 
 export const newsFeatureKey = 'news';
 
-export interface State {
-  loading: boolean;
-  loaded: boolean;
-  story: Story;
-  storiesTop: Story[];
-  comments: Comment[];
+export interface NewsState {
+  Loading: boolean;
+  Story: Story;
+  Stories: Story[];
+  User: User;
+  Comments: Comment[];
+  TopStories: string[];
 }
 
-export const initialState: State = {
-  loading: false,
-  loaded: false,
-  story: {
-    by: 'dhouston',
-    descendants: '71',
-    id: '8863',
-    kids: [
-      '9224',
-      '8917',
-      '8952'
-    ],
-    score: '104',
-    time: '1175714200',
-    title: 'My YC app: Dropbox - Throw away your USB drive',
-    type: 'story',
-    url: 'http://www.getdropbox.com/u/2/screencast.html'
-  } as Story,
-  storiesTop: [],
-  comments: []
+export const initialState: NewsState = {
+  Loading: false,
+  Story: {} as Story,
+  Stories: [],
+  User: {} as User,
+  Comments: [],
+  TopStories: []
 };
 
 export const newsReducer = createReducer(
   initialState,
-  on(fromAction.getTopStories, state => ({
+  // Get Single Story
+  on(fromActions.getStory, state => ({
     ...state,
-    loading: true
+    Loading: true
   })),
-  on(fromAction.getTopStoriesSuccess, (state, { data }) => ({
+  on(fromActions.getStoryComplete, (state, { story }) => ({
     ...state,
-    loading: false,
-    loaded: true,
-    storiesTop: [...data]
+    Loading: false,
+    Story: story
   })),
-  on(fromAction.getTopStoriesFailure, (state, { error }) => ({
+  // Get Multiple Stories
+  on(fromActions.getStories, state => ({
     ...state,
-    loading: false,
-    loaded: true,
-    storiesTop: [...error]
+    Loading: true
   })),
-
+  on(fromActions.getStoriesComplete, (state, { stories }) => ({
+    ...state,
+    Loading: false,
+    Stories: [...stories]
+  })),
+  // Get Top Stories
+  on(fromActions.getTopStories, state => ({
+    ...state,
+    Loading: true
+  })),
+  on(fromActions.getTopStoriesComplete, (state, { storyIds }) => ({
+    ...state,
+    Loading: false,
+    TopStories: [...storyIds]
+  })),
+  // Get Comments
+  on(fromActions.getComments, state => ({
+    ...state,
+    Loading: true
+  })),
+  on(fromActions.getCommentsComplete, (state, { comments }) => ({
+    ...state,
+    Loading: false,
+    Comments: [...comments]
+  })),
+  // Get User
+  on(fromActions.getUser, state => ({
+    ...state,
+    Loading: true
+  })),
+  on(fromActions.getUserComplete, (state, { user }) => ({
+    ...state,
+    Loading: false,
+    User: user
+  })),
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: NewsState | undefined, action: Action) {
   return newsReducer(state, action);
 }
 
-export const selectFeature = createFeatureSelector<any, State>('newsState');
+export const selectFeature = createFeatureSelector<any, NewsState>('newsState');
 
 export const selectLoading = createSelector(
   selectFeature,
-  (state: State) => state.loading
+  (state: NewsState) => state.Loading
 );
 
-export const selectLoaded = createSelector(
+export const selectStory = createSelector(
   selectFeature,
-  (state: State) => state.loaded
+  (state: NewsState) => state.Story
+);
+
+export const selectStories = createSelector(
+  selectFeature,
+  (state: NewsState) => state.Stories
+);
+
+export const selectUser = createSelector(
+  selectFeature,
+  (state: NewsState) => state.User
+);
+
+export const selectComments = createSelector(
+  selectFeature,
+  (state: NewsState) => state.Comments
 );
 
 export const selectTopStories = createSelector(
   selectFeature,
-  (state: State) => state.storiesTop
+  (state: NewsState) => state.TopStories
 );
