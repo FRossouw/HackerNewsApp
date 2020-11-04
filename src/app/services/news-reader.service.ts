@@ -11,14 +11,14 @@ import { User } from '../models/user';
 })
 export class NewsReaderService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getStory(storyId: string): Observable<Story> {
-    return this._http.get<Story>(`${environment.api.url}${storyId}${environment.api.end}`);
+    return this.http.get<Story>(`${environment.api.url}${storyId}${environment.api.end}`);
   }
 
   getStories(stories: string[]): Story[] {
-    let storyList = [];
+    const storyList = [];
     stories.forEach(storyId => {
       this.getComment(storyId).pipe(
         map(response => response)
@@ -28,15 +28,15 @@ export class NewsReaderService {
   }
 
   getStoriesTop(): Observable<string[]> {
-    return this._http.get<string[]>(`${environment.api.topStories}`);
+    return this.http.get<string[]>(`${environment.api.topStories}`);
   }
 
   getComment(commentId: string): Observable<Comment> {
-    return this._http.get<Comment>(`${environment.api.url}${commentId}${environment.api.end}`);
+    return this.http.get<Comment>(`${environment.api.url}${commentId}${environment.api.end}`);
   }
 
   getComments(comments: string[]): Comment[] {
-    let commentList = [];
+    const commentList = [];
     comments.forEach(commentId => {
       this.getComment(commentId).pipe(
         map(response => response)
@@ -46,7 +46,7 @@ export class NewsReaderService {
   }
 
   getUser(userId: string): Observable<User> {
-    return this._http.get<User>(`${environment.api.userUrl}${userId}${environment.api.end}`);
+    return this.http.get<User>(`${environment.api.userUrl}${userId}${environment.api.end}`);
   }
 
 }
