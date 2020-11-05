@@ -89,22 +89,6 @@ export class NewsEffects {
   )
   );
 
-  // loadComments$ = createEffect(() => this.actions$.pipe(
-  //   ofType(fromActions.getComments),
-  //   mergeMap((action) => this.newsService.getComments(action.commentIds)
-  //     .pipe(
-  //       map(response => {
-  //         return fromActions.getCommentsComplete({ comments: response });
-  //       }),
-  //       catchError(err => {
-  //         console.error(err);
-  //         return EMPTY;
-  //       })
-  //     )
-  //   )
-  // )
-  // );
-
   // Get User
   loadUser$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.getUser),
