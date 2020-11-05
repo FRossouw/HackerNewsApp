@@ -13,7 +13,7 @@ import { NewsState, selectLoading, selectUser } from 'src/app/store/reducers/new
 })
 export class UserComponent implements OnInit {
 
-  id: string = '';
+  id = '';
   loading$: Observable<boolean>;
   user$: Observable<User>;
   constructor(private activatedroute: ActivatedRoute, private newsStore: Store<NewsState>) { }

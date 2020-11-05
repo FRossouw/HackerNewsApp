@@ -28,25 +28,25 @@ export class NewsEffects {
   // Get Multiple Stories
   loadStories$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.getStories),
-    mergeMap((action) => { 
-       if (action?.storyIds.length === 0) {
-          return EMPTY;
-       }
-       return this.newsService.getStory(action.storyIds[0])
-      .pipe(
-        map(response => {
-          if (action?.storyIds.length === 1) {
-            return fromActions.getStoriesComplete({ stories: [...action.storyList, response]});
-          } 
-           return fromActions.getStories({ storyIds: action.storyIds.slice(1), storyList: [...action.storyList, response]});
-        }),
-        catchError(err => {
-          console.error(err);
-          return EMPTY;
-        })
-        )
-      })
-    )
+    mergeMap((action) => {
+      if (action?.storyIds.length === 0) {
+        return EMPTY;
+      }
+      return this.newsService.getStory(action.storyIds[0])
+        .pipe(
+          map(response => {
+            if (action?.storyIds.length === 1) {
+              return fromActions.getStoriesComplete({ stories: [...action.storyList, response] });
+            }
+            return fromActions.getStories({ storyIds: action.storyIds.slice(1), storyList: [...action.storyList, response] });
+          }),
+          catchError(err => {
+            console.error(err);
+            return EMPTY;
+          })
+        );
+    })
+  )
   );
 
   // Get Top Stories
@@ -68,25 +68,25 @@ export class NewsEffects {
   // Get Comments
   loadComments$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.getComments),
-    mergeMap((action) => { 
-       if (action?.commentIds.length === 0) {
-          return EMPTY;
-       }
-       return this.newsService.getComment(action.commentIds[0])
-      .pipe(
-        map(response => {
-          if (action?.commentIds.length === 1) {
-            return fromActions.getCommentsComplete({ comments: [...action.comments, response]});
-          } 
-           return fromActions.getComments({ commentIds: action.commentIds.slice(1), comments: [...action.comments, response]});
-        }),
-        catchError(err => {
-          console.error(err);
-          return EMPTY;
-        })
-        )
-      })
-    )
+    mergeMap((action) => {
+      if (action?.commentIds.length === 0) {
+        return EMPTY;
+      }
+      return this.newsService.getComment(action.commentIds[0])
+        .pipe(
+          map(response => {
+            if (action?.commentIds.length === 1) {
+              return fromActions.getCommentsComplete({ comments: [...action.comments, response] });
+            }
+            return fromActions.getComments({ commentIds: action.commentIds.slice(1), comments: [...action.comments, response] });
+          }),
+          catchError(err => {
+            console.error(err);
+            return EMPTY;
+          })
+        );
+    })
+  )
   );
 
   // loadComments$ = createEffect(() => this.actions$.pipe(

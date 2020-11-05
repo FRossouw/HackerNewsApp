@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   loading$: Observable<boolean>;
   stories$: Observable<Story[]>;
   topStories$: Observable<string[]>;
-  topStoriesCount: number = 10;
+  topStoriesCount = 10;
   constructor(private newsStore: Store<NewsState>) { }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
 
     // Get Top Stories
     this.newsStore.dispatch(getTopStories());
-    var tempStories = [];
+    const tempStories = [];
 
     this.topStories$.subscribe((stories) => {
       if ((stories) && (stories.length > 0)) {

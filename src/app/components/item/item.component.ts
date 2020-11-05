@@ -14,7 +14,7 @@ import { NewsState, selectComments, selectLoading, selectStories, selectStory } 
 })
 export class ItemComponent implements OnInit {
 
-  id: string = '';
+  id = '';
   loading$: Observable<boolean>;
   story$: Observable<Story>;
   comments$: Observable<Comment[]>;
@@ -38,7 +38,7 @@ export class ItemComponent implements OnInit {
     );
 
     // Get Story
-    let tempComments = [];
+    const tempComments = [];
     this.newsStore.dispatch(getStory({ storyID: this.id }));
 
     this.story$.subscribe((response) => {
