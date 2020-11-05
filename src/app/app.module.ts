@@ -19,6 +19,8 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
+import { NzCommentModule } from 'ng-zorro-antd/comment';
+import { NzCardModule } from 'ng-zorro-antd/card';
 
 // Components
 import { PageHeaderComponent } from './components/page-header/page-header.component';
@@ -30,6 +32,7 @@ import * as fromNews from '../app/store/reducers/news.reducer';
 import { NewsEffects } from '../app/store/effects/news.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { ItemComponent } from './components/item/item.component';
+import { UserComponent } from './components/user/user.component';
 
 registerLocaleData(en);
 
@@ -46,7 +49,8 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     AppComponent,
     PageHeaderComponent,
     HomeComponent,
-    ItemComponent
+    ItemComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +63,8 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     NzTypographyModule,
     NzListModule,
     NzProgressModule,
+    NzCommentModule,
+    NzCardModule,
     StoreModule.forRoot({newsState: fromNews.reducer}, { metaReducers: [debug] }),
     // StoreModule.forFeature(fromNews.newsFeatureKey, fromNews.reducer),
     // EffectsModule.forRoot([NewsEffects]),

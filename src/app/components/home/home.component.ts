@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Story } from 'src/app/models/story';
-import { getStories, getStoriesComplete, getTopStories } from 'src/app/store/actions/news.actions';
+import { getStories, getTopStories } from 'src/app/store/actions/news.actions';
 import { NewsState, selectStories, selectTopStories, selectLoading } from 'src/app/store/reducers/news.reducer';
 
 @Component({
