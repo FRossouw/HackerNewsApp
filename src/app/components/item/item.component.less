@@ -1,0 +1,33 @@
+@import '../../../styles.less';
+
+#item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .container {
+        margin-top: 20px;
+        min-width: 1000px;
+        max-width: 1000px;
+
+        h4 {
+            font-size: 16px;
+            font-weight: 300;
+
+            span:nth-of-type(1) {
+                font-weight: 600;
+                margin-right: 10px;
+            }
+        }
+
+        ul {
+
+            li {
+                border: 1px solid @shade-1;
+            }
+
+        }
+    }
+
+}

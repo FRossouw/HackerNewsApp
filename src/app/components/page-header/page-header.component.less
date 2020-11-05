@@ -1,0 +1,25 @@
+@import '../../../styles.less';
+
+.header {
+    display: flex;
+    align-items: center;
+    background-color: @shade-5;
+    height: 120px;
+    
+    h1 {
+        margin-left: 50px;
+        margin-bottom: 0px;
+        color: @shade-1;
+        font-family: @font-head;
+    }
+
+    h1:hover span {
+        display: none;
+    }
+
+    h1:hover::before {
+        content: 'We are watching!';
+        font-family: @font-unreadable;
+    }
+
+}

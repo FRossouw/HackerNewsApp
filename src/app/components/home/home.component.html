@@ -1,0 +1,21 @@
+<div id="topStories">
+
+    <div class="container">
+        <h3 nz-typography>Hacker News Top Stories</h3>
+
+        <nz-progress [nzPercent]="(stories$ | async).length*100/topStoriesCount || 0" [nzShowInfo]="false">
+        </nz-progress>
+
+        <ul nz-list  nzBordered nzSize="large">
+            <ng-container *ngFor="let story of (stories$ | async)">
+                <a [routerLink]="['/item', story.id]">
+                    <li nz-list-item nzNoFlex>
+                        <span>{{story.title}}</span> <span>By: {{story.by}}</span>
+                    </li>
+                </a>
+            </ng-container>
+        </ul>
+        
+    </div>
+
+</div>

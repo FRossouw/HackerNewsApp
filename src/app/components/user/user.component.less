@@ -1,0 +1,23 @@
+@import '../../../styles.less';
+
+#user {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+
+    .container {
+        display: flex;
+        justify-content: center;
+
+        p {
+            font-weight: 300;
+            text-overflow: ellipsis;
+
+            &:nth-of-type(odd) {
+                font-weight: 600;
+            }
+        }
+
+    }
+
+}
