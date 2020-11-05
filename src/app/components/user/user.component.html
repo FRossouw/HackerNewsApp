@@ -1,0 +1,14 @@
+<div id="user">
+
+    <div class="container" *ngIf="(user$ | async)">
+        <nz-card style="width:300px;" nzTitle="{{(user$ | async)?.id}}">
+            <p>About:</p>
+            <p>{{(user$ | async)?.about}}</p>
+            <p>Karma:</p>
+            <p>{{(user$ | async)?.karma}}</p>
+            <p>Delay:</p>
+            <p>{{(user$ | async)?.delay}}</p>
+        </nz-card>
+    </div>
+
+</div>
