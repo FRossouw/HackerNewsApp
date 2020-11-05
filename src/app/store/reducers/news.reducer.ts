@@ -38,9 +38,10 @@ export const newsReducer = createReducer(
     Story: story
   })),
   // Get Multiple Stories
-  on(fromActions.getStories, state => ({
+  on(fromActions.getStories, (state, { storyList }) => ({
     ...state,
-    Loading: true
+    Loading: true,
+    Stories: storyList
   })),
   on(fromActions.getStoriesComplete, (state, { stories }) => ({
     ...state,
