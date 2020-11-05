@@ -1,1 +1,34 @@
-<p>item works!</p>
+<div id="item">
+
+    <div class="container" *ngIf="(story$ | async)">
+        <h3 nz-typography>{{ (story$ | async)?.title }}</h3>
+        <h4>
+            <a [routerLink]="['/user', (story$ | async)?.by]">
+                <span>Author:</span><span>{{(story$ | async)?.by}}</span>
+            </a>
+        </h4>
+        <h4 nz-typography><a  href="{{(story$ | async)?.url}}">{{ (story$ | async)?.url }}</a></h4>
+    </div>
+
+    <div *ngIf="(comments$ | async)" class="container">
+        <h4>Comments</h4>
+        <div *ngFor="let comment of (comments$ | async)">
+
+            <nz-comment nzAuthor="{{comment.by}}">
+                <nz-avatar nz-comment-avatar nzIcon="user"
+                    nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+                <nz-comment-content>
+                    <p>
+                        We supply a series of design principles, practical patterns and high quality design resources
+                        (Sketch and Axure), to help people
+                        create their product prototypes beautifully and efficiently.
+                    </p>
+                    <a href=""></a>
+                </nz-comment-content>
+            </nz-comment>
+
+        </div>
+
+    </div>
+
+</div>
