@@ -13,4 +13,13 @@
         font-family: @font-head;
     }
 
+    h1:hover span {
+        display: none;
+    }
+
+    h1:hover::before {
+        content: 'We are watching!';
+        font-family: @font-unreadable;
+    }
+
 }

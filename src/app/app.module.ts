@@ -16,21 +16,37 @@ import { registerLocaleData } from '@angular/common';
 // NG-Zorro Library
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
-import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
+
+// Components
+import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { HomeComponent } from './components/home/home.component';
-import { StoreModule } from '@ngrx/store';
+
+// Store
+import { ActionReducer, StoreModule } from '@ngrx/store';
 import * as fromNews from '../app/store/reducers/news.reducer';
 import { NewsEffects } from '../app/store/effects/news.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { ItemComponent } from './components/item/item.component';
 
 registerLocaleData(en);
+
+export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
+  return (state, action) => {
+    console.log('state', state);
+    console.log('action', action);
+    return reducer(state, action);
+  };
+}
 
 @NgModule({
   declarations: [
     AppComponent,
     PageHeaderComponent,
-    HomeComponent
+    HomeComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,
@@ -41,8 +57,10 @@ registerLocaleData(en);
     NzButtonModule,
     NzPageHeaderModule,
     NzTypographyModule,
-    StoreModule.forRoot([]),
-    StoreModule.forFeature(fromNews.newsFeatureKey, fromNews.reducer),
+    NzListModule,
+    NzProgressModule,
+    StoreModule.forRoot({newsState: fromNews.reducer}, { metaReducers: [debug] }),
+    // StoreModule.forFeature(fromNews.newsFeatureKey, fromNews.reducer),
     // EffectsModule.forRoot([NewsEffects]),
     EffectsModule.forRoot([]),
     EffectsModule.forFeature([NewsEffects]),
