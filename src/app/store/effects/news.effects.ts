@@ -9,7 +9,7 @@ import * as fromActions from '../actions/news.actions';
 @Injectable()
 export class NewsEffects {
 
-  // Get Single Storu
+  // Get Single Story
   loadStory$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.getStory),
     mergeMap((action) => this.newsService.getStory(action.storyID)
@@ -49,21 +49,6 @@ export class NewsEffects {
     )
   );
 
-  // loadStories$ = createEffect(() => this.actions$.pipe(
-  //   ofType(fromActions.getStories),
-  //   mergeMap((action) => this.newsService.getStories(action.storyList)
-  //     .pipe(
-  //       map(response => {
-  //         return fromActions.getStoriesComplete({ stories: response });
-  //       }),
-  //       catchError(err => {
-  //         console.error(err);
-  //         return EMPTY;
-  //       })
-  //     )
-  //   )
-  // ));
-
   // Get Top Stories
   loadTopStories$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.getTopStories),
@@ -83,19 +68,42 @@ export class NewsEffects {
   // Get Comments
   loadComments$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.getComments),
-    mergeMap((action) => this.newsService.getComments(action.commentIds)
+    mergeMap((action) => { 
+       if (action?.commentIds.length === 0) {
+          return EMPTY;
+       }
+       return this.newsService.getComment(action.commentIds[0])
       .pipe(
         map(response => {
-          return fromActions.getCommentsComplete({ comments: response });
+          if (action?.commentIds.length === 1) {
+            return fromActions.getCommentsComplete({ comments: [...action.comments, response]});
+          } 
+           return fromActions.getComments({ commentIds: action.commentIds.slice(1), comments: [...action.comments, response]});
         }),
         catchError(err => {
           console.error(err);
           return EMPTY;
         })
-      )
+        )
+      })
     )
-  )
   );
+
+  // loadComments$ = createEffect(() => this.actions$.pipe(
+  //   ofType(fromActions.getComments),
+  //   mergeMap((action) => this.newsService.getComments(action.commentIds)
+  //     .pipe(
+  //       map(response => {
+  //         return fromActions.getCommentsComplete({ comments: response });
+  //       }),
+  //       catchError(err => {
+  //         console.error(err);
+  //         return EMPTY;
+  //       })
+  //     )
+  //   )
+  // )
+  // );
 
   // Get User
   loadUser$ = createEffect(() => this.actions$.pipe(

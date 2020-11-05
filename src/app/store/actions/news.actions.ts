@@ -16,7 +16,7 @@ export const getTopStories = createAction('[News] Get Top Stories');
 export const getTopStoriesComplete = createAction('[News] Get Top Stories Complete', props<{ storyIds: string[] }>());
 
 // Get Comments
-export const getComments = createAction('[News] Get Comments', props<{ commentIds: string[] }>());
+export const getComments = createAction('[News] Get Comments', props<{ commentIds: string[], comments: Comment[] }>());
 export const getCommentsComplete = createAction('[News] Get Comments Complete', props<{ comments: Comment[] }>());
 
 // Get User

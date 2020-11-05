@@ -59,9 +59,10 @@ export const newsReducer = createReducer(
     TopStories: [...storyIds]
   })),
   // Get Comments
-  on(fromActions.getComments, state => ({
+  on(fromActions.getComments, (state, { comments }) => ({
     ...state,
-    Loading: true
+    Loading: true,
+    Comments: comments
   })),
   on(fromActions.getCommentsComplete, (state, { comments }) => ({
     ...state,
